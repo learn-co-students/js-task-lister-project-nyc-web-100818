@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // your solution here
-  // grab DOM elements
-  const listDiv = document.getElementById("app-content");
-
-  const app = new TaskLister();
+  const taskListModel = new TaskListModel(),
+        taskListView = new TaskListView(taskListModel, {
+          form: document.getElementById('create-list-form'),
+          content: document.getElementById('app-content')
+        }), 
+        taskListController = new TaskListController(taskListModel, taskListView)
 });
