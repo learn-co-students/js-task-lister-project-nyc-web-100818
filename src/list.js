@@ -1,20 +1,34 @@
-class List extends EventEmitter {
+class List {
   constructor(name) {
-    super()
     this.name = name
+    this.selected = true
     this.tasks = []
   }
 
-  // adds a task and emits taskAdded to subscribers
   addTask(task) {
     this.tasks.push(task)
-    this.emit('taskAdded', this)
   }
 
-  // removes a task and emits taskRemoved to subscribers
-  removeTask(taskToRemove) {
-    this.tasks = this.tasks.filter(task => task !== taskToRemove)
-    this.emit('taskRemoved', this)
+  removeTask(task) {
+    this.tasks = this.tasks.filter(t => t !== task)
   }
- 
+
+  findTask(taskDescription) {
+    return this.tasks.find(task => task.description === taskDescription)
+  }
+
+  renderDiv() {
+    const taskElements = this.tasks.map(task => task.renderLi()).join("")
+    return `<div data-name="${this.name}">
+              <h2>${this.name}
+                <button data-title="${this.name}" class="delete-list">X</button>
+              </h2>
+              <ul>${taskElements}</ul>
+            </div>`
+  }
+
+  renderOption() {
+    return `<option value="${this.name}" ${(this.selected ? "selected" : "")}>${this.name}</option>`
+  }
+  
 }
