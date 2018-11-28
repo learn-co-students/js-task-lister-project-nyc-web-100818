@@ -1,3 +1,9 @@
+const taskz = [];
+
 class Task {
-  // your code here
+  constructor(name, priority) {
+    this.name = name;
+    this.priority = priority;
+    taskz.push(this);
+  }
 }
